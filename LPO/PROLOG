@@ -1,0 +1,48 @@
+pai(pietro, joao).
+pai(pietro, clara).
+pai(pietro, francisco).
+pai(pietro, valeria).
+pai(pietro, ana).
+pai(joao, mario).
+pai(mario, carlos).
+pai(jacynto, francisca).
+pai(jacynto, antonia).
+pai(pablo, jacynto).
+
+mae(antonita, joao).
+mae(antonita, clara).
+mae(antonita, francisco).
+mae(antonita, valeria).
+mae(antonita, ana).
+mae(ana, helena).
+mae(ana, joana).
+mae(helena, carlos).
+mae(clara, pietro_filho).
+mae(clara, enzo).
+mae(claudia, francisca).
+mae(claudia, antonia).
+mae(luiza, jacynto).
+
+
+
+grandepai(X, Y) :- pai(X, Z), pai(Z, Y).
+grandepai(X, Y) :- pai(X, Z), mae(Z, Y).
+
+grandemae(X, Y) :- mae(X, Z), pai(Z, Y).
+grandemae(X, Y) :- mae(X, Z), mae(Z, Y).
+
+tio(X, Y) :- pai(Z, Y), irmao(X, Z).
+tia(X, Y) :- mae(Z, Y), irmao(X, Z).
+
+irmao(X, Y) :- pai(P, X), pai(P, Y), X \= Y.
+irma(X, Y) :- mae(M, X), mae(M, Y), X \= Y.
+
+primo(X, Y) :- pai(Z, X), pai(W, Y), irmao(Z, W).
+prima(X, Y) :- mae(Z, X), mae(W, Y), irmao(Z, W).
+
+descendente(X, Y) :- pai(Y, X).
+descendente(X, Y) :- mae(Y, X).
+descendente(X, Y) :- pai(Y, Z), descendente(X, Z).
+descendente(X, Y) :- mae(Y, Z), descendente(X, Z).
+
+ascendente(X, Y) :- descendente(Y, X).
